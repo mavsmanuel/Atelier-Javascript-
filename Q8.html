@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrousel d'Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        .carrousel {
+            width: 500px;
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .carrousel img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .boutons {
+            margin-top: 20px;
+        }
+        .boutons button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #007BFF;
+            color: white;
+            border-radius: 5px;
+        }
+        .boutons button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="carrousel">
+        <!-- Image du carrousel -->
+        <img id="imageCarrousel" src="1.jpg" alt="Image du carrousel">
+
+        <!-- Boutons de navigation -->
+        <div class="boutons">
+            <button id="precedent">Précédent</button>
+            <button id="suivant">Suivant</button>
+        </div>
+    </div>
+
+    <script>
+        // Tableau des chemins des images
+        const images = ["1.jpg", "2.jpg", "3.jpg"];
+
+        // Index de l'image actuelle
+        let indexActuel = 0;
+
+        // Récupérer l'élément image
+        const imageCarrousel = document.getElementById("imageCarrousel");
+
+        // Fonction pour afficher l'image actuelle
+        function afficherImage() {
+            imageCarrousel.src = images[indexActuel];
+        }
+
+        // Bouton "Précédent"
+        document.getElementById("precedent").addEventListener("click", function() {
+            indexActuel = (indexActuel - 1 + images.length) % images.length;
+            afficherImage();
+        });
+
+        // Bouton "Suivant"
+        document.getElementById("suivant").addEventListener("click", function() {
+            indexActuel = (indexActuel + 1) % images.length;
+            afficherImage();
+        });
+
+        // Afficher la première image au chargement de la page
+        afficherImage();
+    </script>
+</body>
+</html>

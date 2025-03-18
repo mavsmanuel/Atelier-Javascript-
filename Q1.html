@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table de Multiplication</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            display: block;
+            margin: 20px auto;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #resultat {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+            white-space: pre-line;
+            display: none;
+        }
+        .table-container {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Table de Multiplication</h1>
+        <p>Cliquez sur le bouton ci-dessous pour saisir un nombre et afficher sa table de multiplication.</p>
+        
+        <button onclick="afficherTableMultiplication()">Afficher une table de multiplication</button>
+        
+        <div id="resultat"></div>
+        
+        <div id="table-container" class="table-container" style="display: none;">
+            <table id="multiplication-table">
+                <thead>
+                    <tr>
+                        <th>Opération</th>
+                        <th>Résultat</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Les résultats seront ajoutés ici dynamiquement -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * Affiche la table de multiplication d'une valeur saisie par l'utilisateur
+         */
+        function afficherTableMultiplication() {
+            // Demander à l'utilisateur de saisir un nombre
+            const valeur = prompt("Veuillez saisir un nombre pour afficher sa table de multiplication :");
+            
+            // Vérifier si l'utilisateur a saisi une valeur et si c'est un nombre valide
+            if (valeur === null) {
+                alert("Opération annulée par l'utilisateur.");
+                return;
+            }
+            
+            // Convertir la valeur en nombre
+            const nombre = parseFloat(valeur);
+            
+            // Vérifier si la conversion a réussi
+            if (isNaN(nombre)) {
+                alert("Erreur : Veuillez saisir un nombre valide.");
+                return;
+            }
+            
+            // Préparer l'affichage du résultat
+            let resultatTexte = `Table de multiplication de ${nombre} :`;
+            
+            // Récupérer les éléments HTML
+            const resultatDiv = document.getElementById("resultat");
+            const tableContainer = document.getElementById("table-container");
+            const tableBody = document.getElementById("table-body");
+            
+            // Effacer le contenu précédent
+            tableBody.innerHTML = "";
+            
+            // Générer la table de multiplication
+            for (let i = 1; i <= 10; i++) {
+                // Ajouter une ligne dans le tableau
+                const row = document.createElement("tr");
+                
+                // Créer une cellule pour l'opération
+                const operationCell = document.createElement("td");
+                operationCell.textContent = `${nombre} × ${i}`;
+                row.appendChild(operationCell);
+                
+                // Créer une cellule pour le résultat
+                const resultCell = document.createElement("td");
+                resultCell.textContent = `${nombre * i}`;
+                row.appendChild(resultCell);
+                
+                // Ajouter la ligne au tableau
+                tableBody.appendChild(row);
+            }
+            
+            // Afficher le résultat et le tableau
+            resultatDiv.textContent = resultatTexte;
+            resultatDiv.style.display = "block";
+            tableContainer.style.display = "block";
+        }
+    </script>
+</body>
+</html>

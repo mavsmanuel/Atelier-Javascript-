@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini Calculatrice</title>
+</head>
+<body>
+    <h2>Mini Calculatrice</h2>
+    <div id="doc">
+    
+    <input type="number" id="nombre1" placeholder="Premier nombre">
+    
+    <select id="operation">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">×</option>
+        <option value="/">÷</option>
+    </select>
+    
+    <input type="number" id="nombre2" placeholder="Deuxième nombre">
+    
+    <button onclick="calculer()">Calculer</button>
+    
+    <input type="text" id="resultat" disabled>
+    </div>
+    
+    <script>
+        function calculer() {
+            //recuperation de valeur 
+            var a = parseFloat(document.getElementById("nombre1").value);
+            var b = parseFloat(document.getElementById("nombre2").value);
+            var op = document.getElementById("operation").value;
+            var resultat;
+
+            switch(op) {
+                case "+":
+                    resultat = a + b;
+                    break;
+                case "-":
+                    resultat = a - b;
+                    break;
+                case "*":
+                    resultat = a * b;
+                    break;
+                case "/":
+                    if(b === 0) {
+                        resultat = "Erreur: Division par zéro";
+                    } else {
+                        resultat = a / b;
+                    }
+                    break;
+            }
+            
+            document.getElementById("resultat").value = resultat;
+        }
+    </script>
+</body>
+</html>

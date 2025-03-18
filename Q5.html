@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversion Décimal en Binaire</title>
+</head>
+<body>
+    <h1>Conversion Décimal en Binaire</h1>
+
+    <!-- Champ de saisie pour le nombre décimal -->
+    <label for="decimal">Entrez un nombre décimal :</label>
+    <input type="number" id="decimal" placeholder="Nombre décimal">
+    
+    <!-- Bouton pour déclencher la conversion -->
+    <button id="bouton">Convertir en binaire</button>
+
+    <!-- Zone pour afficher le résultat -->
+    <p id="resultat"></p>
+
+    <script>
+        // Fonction récursive pour convertir un nombre décimal en binaire
+        function decimalEnBinaire(n) {
+            // Cas de base : si n est 0, retourne une chaîne vide
+            if (n === 0) {
+                return "";
+            }
+            // Appel récursif : diviser n par 2 et concaténer le reste
+            return decimalEnBinaire(Math.floor(n / 2)) + (n % 2).toString();
+        }
+
+        // Ajouter un événement au bouton
+        document.getElementById("bouton").addEventListener("click", function() {
+            // Récupérer la valeur saisie
+            const nombreDecimal = document.getElementById("decimal").value;
+
+            // Vérifier si la valeur est un nombre valide
+            if (!isNaN(nombreDecimal) && nombreDecimal !== "") {
+                // Convertir en nombre entier
+                const nombre = parseInt(nombreDecimal, 10);
+
+                // Appeler la fonction récursive
+                const binaire = decimalEnBinaire(nombre);
+
+                // Afficher le résultat
+                document.getElementById("resultat").textContent = `Le nombre binaire est : ${binaire}`;
+            } else {
+                // Afficher un message d'erreur si la valeur n'est pas valide
+                document.getElementById("resultat").textContent = "Veuillez entrer un nombre décimal valide.";
+            }
+        });
+    </script>
+</body>
+</html>

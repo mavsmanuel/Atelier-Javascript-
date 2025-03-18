@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Somme des chiffres</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>
+                <input type="text" placeholder="Entrez votre chiffre" id="chiffre">
+            </td>
+            <td>
+                <input type="submit" value="OK" id="bouton">
+            </td>
+        </tr>
+    </table>
+    <p id="resultat"></p> <!-- Pour afficher le résultat -->
+
+    <script>
+        function sommeDesChiffres(nombre) {
+            // Convertir le nombre en une chaîne de caractères
+            const chiffres = nombre.toString();
+            
+            // Initialiser la somme à 0
+            let somme = 0;
+            
+            // Parcourir chaque caractère de la chaîne
+            for (let i = 0; i < chiffres.length; i++) {
+                // Convertir le caractère en nombre et l'ajouter à la somme
+                somme += parseInt(chiffres[i], 10);
+            }
+            
+            // Retourner la somme
+            return somme;
+        }
+
+        // Récupérer le bouton et ajouter un événement
+        const bouton = document.getElementById("bouton");
+        bouton.addEventListener("click", function() {
+            // Récupérer la valeur de l'input
+            const val = document.getElementById("chiffre").value;
+            
+            // Vérifier si la valeur est un nombre valide
+            if (!isNaN(val) && val !== "") {
+                // Calculer la somme des chiffres
+                const resultat = sommeDesChiffres(val);
+                
+                // Afficher le résultat
+                document.getElementById("resultat").textContent = "La somme des chiffres est : " + resultat;
+            } else {
+                // Afficher un message d'erreur si la valeur n'est pas un nombre
+                document.getElementById("resultat").textContent = "Veuillez entrer un nombre valide.";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire d'Inscription</title>
+    <style>
+        .error { color: red; }
+        .success { color: green; }
+    </style>
+</head>
+<body>
+    <h1>Formulaire d'Inscription</h1>
+
+    <form id="formulaireInscription">
+        <!-- Civilité -->
+        <label for="civilite">Civilité :</label>
+        <select id="civilite" name="civilite" required>
+            <option value="">Sélectionnez</option>
+            <option value="M">Monsieur</option>
+            <option value="Mme">Madame</option>
+        </select>
+        <span id="civiliteError" class="error"></span><br><br>
+
+        <!-- Nom -->
+        <label for="nom">Nom :</label>
+        <input type="text" id="nom" name="nom" required>
+        <span id="nomError" class="error"></span><br><br>
+
+        <!-- Prénom -->
+        <label for="prenom">Prénom :</label>
+        <input type="text" id="prenom" name="prenom" required>
+        <span id="prenomError" class="error"></span><br><br>
+
+        <!-- Adresse -->
+        <label for="adresse">Adresse :</label>
+        <input type="text" id="adresse" name="adresse" required>
+        <span id="adresseError" class="error"></span><br><br>
+
+        <!-- Email -->
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" required>
+        <span id="emailError" class="error"></span><br><br>
+
+        <!-- Téléphone -->
+        <label for="telephone">Téléphone :</label>
+        <input type="text" id="telephone" name="telephone" required>
+        <span id="telephoneError" class="error"></span><br><br>
+
+        <!-- Pays -->
+        <label for="pays">Pays :</label>
+        <select id="pays" name="pays" required>
+            <option value="">Sélectionnez</option>
+            <option value="FR">maroc</option>
+        </select>
+        <span id="paysError" class="error"></span><br><br>
+
+        <!-- Login -->
+        <label for="login">Login :</label>
+        <input type="text" id="login" name="login" required>
+        <span id="loginError" class="error"></span><br><br>
+
+        <!-- Mot de passe -->
+        <label for="motDePasse">Mot de passe :</label>
+        <input type="password" id="motDePasse" name="motDePasse" required>
+        <span id="motDePasseError" class="error"></span><br><br>
+
+        <!-- Confirmer mot de passe -->
+        <label for="confirmerMotDePasse">Confirmer mot de passe :</label>
+        <input type="password" id="confirmerMotDePasse" name="confirmerMotDePasse" required>
+        <span id="confirmerMotDePasseError" class="error"></span><br><br>
+
+        <!-- Bouton de soumission -->
+        <input type="submit" value="S'inscrire">
+    </form>
+
+    <p id="message" class="success"></p>
+
+    <script>
+        // Regex pour valider l'email
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Regex pour valider le téléphone (format français)
+        const telephoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
+
+        // Fonction pour valider le formulaire
+        function validerFormulaire(event) {
+            event.preventDefault(); // Empêcher la soumission du formulaire
+
+            // Réinitialiser les messages d'erreur
+            const errors = document.querySelectorAll(".error");
+            errors.forEach(error => error.textContent = "");
+
+            // Récupérer les valeurs des champs
+            const civilite = document.getElementById("civilite").value;
+            const nom = document.getElementById("nom").value;
+            const prenom = document.getElementById("prenom").value;
+            const adresse = document.getElementById("adresse").value;
+            const email = document.getElementById("email").value;
+            const telephone = document.getElementById("telephone").value;
+            const pays = document.getElementById("pays").value;
+            const login = document.getElementById("login").value;
+            const motDePasse = document.getElementById("motDePasse").value;
+            const confirmerMotDePasse = document.getElementById("confirmerMotDePasse").value;
+
+            // Valider chaque champ
+            let isValid = true;
+
+            if (!civilite) {
+                document.getElementById("civiliteError").textContent = "La civilité est obligatoire.";
+                isValid = false;
+            }
+
+            if (!nom) {
+                document.getElementById("nomError").textContent = "Le nom est obligatoire.";
+                isValid = false;
+            }
+
+            if (!prenom) {
+                document.getElementById("prenomError").textContent = "Le prénom est obligatoire.";
+                isValid = false;
+            }
+
+            if (!adresse) {
+                document.getElementById("adresseError").textContent = "L'adresse est obligatoire.";
+                isValid = false;
+            }
+
+            if (!emailRegex.test(email)) {
+                document.getElementById("emailError").textContent = "L'email n'est pas valide.";
+                isValid = false;
+            }
+
+            if (!telephoneRegex.test(telephone)) {
+                document.getElementById("telephoneError").textContent = "Le téléphone n'est pas valide.";
+                isValid = false;
+            }
+
+            if (!pays) {
+                document.getElementById("paysError").textContent = "Le pays est obligatoire.";
+                isValid = false;
+            }
+
+            if (!login) {
+                document.getElementById("loginError").textContent = "Le login est obligatoire.";
+                isValid = false;
+            }
+
+            if (!motDePasse) {
+                document.getElementById("motDePasseError").textContent = "Le mot de passe est obligatoire.";
+                isValid = false;
+            }
+
+            if (motDePasse !== confirmerMotDePasse) {
+                document.getElementById("confirmerMotDePasseError").textContent = "Les mots de passe ne correspondent pas.";
+                isValid = false;
+            }
+
+            // Afficher un message de succès si tout est valide
+            if (isValid) {
+                document.getElementById("message").textContent = "Formulaire validé avec succès !";
+            } else {
+                document.getElementById("message").textContent = "";
+            }
+        }
+
+        // Ajouter un écouteur d'événement au formulaire
+        document.getElementById("formulaireInscription").addEventListener("submit", validerFormulaire);
+    </script>
+</body>
+</html>
